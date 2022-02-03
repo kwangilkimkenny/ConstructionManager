@@ -25,6 +25,7 @@ public class MoveToGoal_excavator : MonoBehaviour {
 
 	int Cnt = 0;
 
+	//중장비의 출돌체크 : 바위(바위 삭제, 카운터 추가), 트럭(트럭과 출동하면 트럭에 바위 업로드 애니메이션 구현) 
 	[System.Obsolete]
     private void OnTriggerEnter(Collider other)
 	{
@@ -33,7 +34,7 @@ public class MoveToGoal_excavator : MonoBehaviour {
         {
 			//Debug.Log("hit Rocks");
 			
-			if (Cnt < AmountOfDigForLoadTruck) // 5
+			if (Cnt < AmountOfDigForLoadTruck) // 4 개 작업이 끝나면 대기 
             {
 				Destroy(other.gameObject, 1);
 				ExcavatorGetRocks();
@@ -44,10 +45,8 @@ public class MoveToGoal_excavator : MonoBehaviour {
 			else
 			{
 				Debug.Log("excavator wait");
-				//anim.SetTrigger("StayWait");
-				Destroy(other.gameObject, 1);
-				ExcavatorGetRocks();
-				Cnt++;
+				anim.SetTrigger("StayWait");
+
 			}
 		}
 
@@ -79,7 +78,7 @@ public class MoveToGoal_excavator : MonoBehaviour {
 
 
         }
-        Debug.Log("Cnt ==> : " + Cnt);
+        //Debug.Log("Cnt ==> : " + Cnt);
 	}
 
 	IEnumerator LoadRocks()
@@ -104,6 +103,7 @@ public class MoveToGoal_excavator : MonoBehaviour {
 		
 		//Debug.Log("Loading the rocks to the truck");
 	}
+
 
 	// Activate Excavator Digging
 	private void ExcavatorGetRocks()
@@ -149,6 +149,7 @@ public class MoveToGoal_excavator : MonoBehaviour {
 		//Debug.Log("중장비가 바위를 추적하여 추출한다...");
 		GameObject tg = FindNearestObjectByTag("Rocks");
 
+		//추적할 바위가 널이 아니라면, 즉 있다면 바위쪽으로 중장비가 위치를 이동한다. 
 		if (tg != null)
         {
 			goal = tg.transform;
@@ -162,14 +163,24 @@ public class MoveToGoal_excavator : MonoBehaviour {
 		}else
         {
 			this.transform.Translate(0, 0, 0);
-			Debug.Log("Complete!");
+			// Debug.Log("Complete!");
 			truckAgent.StopAllTruck();
         }
+	}
 
-	
 
+	public void StopExcavator()
+	{
+		speed = 0;
+		this.transform.Translate(0, 0, speed * Time.deltaTime);
+		anim.SetTrigger("StayWait");
+	}
 
-	
+	public void ResumeExcavator()
+	{
+		speed = 2.0f;
+		this.transform.Translate(0, 0, speed * Time.deltaTime);
+		anim.SetTrigger("StayWait");
 	}
 
 
@@ -179,7 +190,7 @@ public class MoveToGoal_excavator : MonoBehaviour {
 		// 탐색할 오브젝트 목록을 List 로 저장
 		var objects = GameObject.FindGameObjectsWithTag(tag).ToList();
 
-		// LINQ 메소드를 이용해 가장 가까운 게임오브젝트 추ㅊ
+		// LINQ 메소드를 이용해 가장 가까운 게임오브젝트 추출 
 		var neareastObject = objects
 			.OrderBy(obj =>
 			{

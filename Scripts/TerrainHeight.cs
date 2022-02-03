@@ -18,6 +18,14 @@ public class TerrainHeight : MonoBehaviour
 
     public float raycastDis = 100f;
 
+
+    float distance = 10000f;
+    private bool isMousePressed;
+    private List<Vector3> pointsList;
+    private Vector3 mousePos;
+
+
+
     void OnGUI()
     {
         if(GUI.Button (new Rect(30,30,200,30), "Change Terrain Height"))
@@ -49,16 +57,10 @@ public class TerrainHeight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        isMousePressed = false;
+        pointsList = new List<Vector3>();
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
-    }
 
     public object PositionRaycast(GameObject obj_)
     {
@@ -102,5 +104,139 @@ public class TerrainHeight : MonoBehaviour
 
         return earthVolume_;
     }
+
+
+
+
+    // 마우스로 테러인의 위치를 추출한다.
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            isMousePressed = true;
+            pointsList.RemoveRange(0, pointsList.Count);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isMousePressed = false;
+        }
+
+        if (isMousePressed)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, distance))
+            {
+                if (!pointsList.Contains(hit.point))
+                {
+                    //Debug.Log("Terrain posiotion : " + hit.point);
+
+                    //Vector3 getRange = new Vector3(RangeAttribute(-range.x, range.x),
+                    //                               RectTransform(-range.y, range.y),
+                    //                               RectTransform(-range.z, range.z));
+                    pointsList.Add(hit.point);
+                }
+            }
+        }
+    }
+
+
+
+
+
+    //Terrain terrain;
+    //TerrainData terrainData;
+    //TerrainPointData[] points;
+
+
+    //float[] strength;
+    //int size;
+
+    //float GetStrength(int x, int y)
+    //{
+    //    x = Mathf.Clamp(x, 0, size - 1);
+    //    y = Mathf.Clamp(y, 0, size - 1);
+
+    //    return strength[y * size + x];
+    //}
+
+    //public void Initialize(Texture2D brushTexture, int size)
+    //{
+    //    if (terrain == null)
+    //        terrain = GetComponent<Terrain>();
+
+    //    terrainData = terrain.terrainData;
+
+    //    points = new TerrainPointData[terrainData.alphamapHeight * terrainData.alphamapWidth];
+
+
+
+    //    for (int y = 0; y < terrainData.alphamapHeight; y++)
+    //    {
+    //        for (int x = 0; x < terrainData.alphamapWidth; x++)
+    //        {
+    //            //Normalize Coordinates
+    //            float x01 = (float)x / terrainData.alphamapWidth;
+    //            float y01 = (float)y / terrainData.alphamapHeight;
+
+    //            //Get Height at point
+    //            float height = terrainData.GetHeight(Mathf.RoundToInt(y01 * terrainData.heightmapHeight), Mathf.RoundToInt(x01 * terrainData.heightmapWidth));
+
+    //            //Get Normal at point
+    //            //Vector3 normal = terrainData.GetInterpolatedNormal(y01, x01);
+
+    //            //Get Steepness at point
+    //            float steepness = terrainData.GetSteepness(y01, x01);
+
+    //            points[y * terrainData.alphamapHeight + x] = new TerrainPointData(x, y, height, steepness);//, normal);
+
+
+    //        }
+    //    }
+
+    //    this.size = size;
+    //    //size = brushTexture.height;
+
+    //    strength = new float[size * size];
+
+    //    for (int i = 0; i < size; i++)
+    //    {
+    //        for (int j = 0; j < size; j++)
+    //        {
+    //            strength[i * size + j] = brushTexture.GetPixelBilinear((float)j / size, (float)i / size).a;
+    //        }
+    //    }
+    //}
+
+    //public void Paint(Vector2 mousePosition, int textureIndex = 1, float opacity = 1)
+    //{
+    //    int Size = 8 * size;
+    //    int num = Mathf.FloorToInt(mousePosition.x * terrainData.alphamapWidth);
+    //    int num2 = Mathf.FloorToInt(mousePosition.y * terrainData.alphamapHeight);
+    //    int num3 = Mathf.RoundToInt((float)size) / 2;
+    //    int num4 = Mathf.RoundToInt((float)size) % 2;
+    //    int x = Mathf.Clamp(num - num3, 0, terrainData.alphamapWidth - 1);
+    //    int y = Mathf.Clamp(num2 - num3, 0, terrainData.alphamapHeight - 1);
+    //    int num7 = Mathf.Clamp((num + num3) + num4, 0, terrainData.alphamapWidth);
+    //    int num8 = Mathf.Clamp((num2 + num3) + num4, 0, terrainData.alphamapHeight);
+    //    int width = num7 - x;
+    //    int height = num8 - y;
+
+    //    float[,,] splatmapData = terrainData.GetAlphamaps(0, 0, terrainData.alphamapWidth, terrainData.alphamapHeight);
+
+    //    for (int i = 0; i < height; i++)
+    //    {
+    //        for (int j = 0; j < width; j++)
+    //        {
+    //            int ix = (x + j) - ((num - num3) + num4);
+    //            int iy = (y + i) - ((num2 - num3) + num4);
+    //            splatmapData[y + i, x + j, textureIndex] = GetStrength(ix, iy) * opacity;
+    //        }
+    //    }
+
+    //    terrainData.SetAlphamaps(0, 0, splatmapData);
+    //}
+
 
 }

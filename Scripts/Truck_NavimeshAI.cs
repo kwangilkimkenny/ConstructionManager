@@ -97,7 +97,7 @@ public class Truck_NavimeshAI : MonoBehaviour
         }
 
         //checkLoadRock_ = otherobj.transform.Find("TruckMeshes").transform.FindChild("LoadedRocks").gameObject;
-        Debug.Log("checkLoadRock :" + checkLoadRock_);
+        //Debug.Log("checkLoadRock :" + checkLoadRock_);
 
     }
 
@@ -106,7 +106,7 @@ public class Truck_NavimeshAI : MonoBehaviour
     public void LoadedRocks(GameObject otherobj)
     {
 
-        Debug.Log("otherobj.transform :" + otherobj.transform);
+        //Debug.Log("otherobj.transform :" + otherobj.transform);
         otherobj.transform.Find("TruckMeshes").transform.FindChild("LoadedRocks").gameObject.SetActive(true);
 
     }
@@ -127,7 +127,7 @@ public class Truck_NavimeshAI : MonoBehaviour
     // 작업이 끝나면 멈춤
     public void StopAllTruck()
     {
-        var Trucks = GameObject.FindGameObjectsWithTag("truck");
+        var Trucks = GameObject.FindGameObjectsWithTag("Truck");
         foreach (GameObject trItm in Trucks)
         {
             agent = trItm.GetComponent<NavMeshAgent>();

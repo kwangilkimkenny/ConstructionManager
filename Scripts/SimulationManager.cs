@@ -125,6 +125,8 @@ public class SimulationManager : MonoBehaviour
                     }
                 }
 
+                
+
 
                 // 선택= Mathf.Infinity;  게임오브젝트 우선 변경 
                 changeColorTiles(objClicked);
@@ -536,7 +538,410 @@ public class SimulationManager : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(dir.normalized);
         //ArrowObj.transform.rotation = rot;
 
-        Instantiate(ArrowObj, startObj.transform.position, ArrowObj.transform.rotation = rot);
+        GameObject instObj = Instantiate(ArrowObj, startObj.transform.position, ArrowObj.transform.rotation = rot);
+        //instObj.transform.position += new Vector3(0, 5, 0);
+
+        // change arrow color
+        Color32 changed_objColor;
+        changed_objColor = startObj.GetComponent<MeshRenderer>().material.color;
+
+        Debug.Log("Arrow color value" + changed_objColor);
+        instObj.transform.GetChild(0).GetComponent<Renderer>().material.color = changed_objColor;
+    }
+
+
+    public int clickNum = 0;
+    public void btn_red()
+    {
+        
+        if (clickNum % 2 == 0) // 짝수 일 경우
+        {
+            // 선택된 색의 타일 게임오브젝트 추출 후 리스트에 담기
+            
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.red;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = false;
+                }
+            }
+            clickNum ++;
+            Debug.Log("clickNum show :" + clickNum);
+        }
+        else
+        {
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.red;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = true;
+                }
+            }
+            clickNum ++;
+            Debug.Log("clickNum hide :" + clickNum);
+        }
 
     }
+
+
+    public void btn_yellowGreen()
+    {
+
+        if (clickNum % 2 == 0) // 짝수 일 경우
+        {
+            // 선택된 색의 타일 게임오브젝트 추출 후 리스트에 담기
+
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = new Color(0.8f, 1f, 0f, 1f);
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = false;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum show :" + clickNum);
+        }
+        else
+        {
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = new Color(0.8f, 1f, 0f, 1f);
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = true;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum hide :" + clickNum);
+        }
+
+    }
+
+
+    public void btn_yellow()
+    {
+
+        if (clickNum % 2 == 0) // 짝수 일 경우
+        {
+            // 선택된 색의 타일 게임오브젝트 추출 후 리스트에 담기
+
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.yellow;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = false;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum show :" + clickNum);
+        }
+        else
+        {
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.yellow;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = true;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum hide :" + clickNum);
+        }
+
+    }
+
+
+    public void btn_green()
+    {
+
+        if (clickNum % 2 == 0) // 짝수 일 경우
+        {
+            // 선택된 색의 타일 게임오브젝트 추출 후 리스트에 담기
+
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.green;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = false;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum show :" + clickNum);
+        }
+        else
+        {
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.green;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = true;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum hide :" + clickNum);
+        }
+
+    }
+
+
+    public void btn_white()
+    {
+
+        if (clickNum % 2 == 0) // 짝수 일 경우
+        {
+            // 선택된 색의 타일 게임오브젝트 추출 후 리스트에 담기
+
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.white;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = false;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum show :" + clickNum);
+        }
+        else
+        {
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.white;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = true;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum hide :" + clickNum);
+        }
+
+    }
+
+
+    public void btn_blue()
+    {
+
+        if (clickNum % 2 == 0) // 짝수 일 경우
+        {
+            // 선택된 색의 타일 게임오브젝트 추출 후 리스트에 담기
+
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.blue;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = false;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum show :" + clickNum);
+        }
+        else
+        {
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = Color.blue;
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = true;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum hide :" + clickNum);
+        }
+
+    }
+
+
+    public void btn_darkblue()
+    {
+
+        if (clickNum % 2 == 0) // 짝수 일 경우
+        {
+            // 선택된 색의 타일 게임오브젝트 추출 후 리스트에 담기
+
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = new Color(0.2f, 0f, 0.7f, 1);
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = false;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum show :" + clickNum);
+        }
+        else
+        {
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = new Color(0.2f, 0f, 0.7f, 1);
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = true;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum hide :" + clickNum);
+        }
+
+    }
+
+
+
+    public void btn_purple()
+    {
+
+        if (clickNum % 2 == 0) // 짝수 일 경우
+        {
+            // 선택된 색의 타일 게임오브젝트 추출 후 리스트에 담기
+
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = new Color(0.3f, 0f, 0.3f, 1);
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = false;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum show :" + clickNum);
+        }
+        else
+        {
+            // 모든 타일 오브젝트를 리스트에 담기 
+            allCube = GameObject.FindGameObjectsWithTag("GidCube");
+
+            Color32 objColor__ = new Color(0.3f, 0f, 0.3f, 1);
+
+            // 반복문으로 비교하여 변경전 추출한 게임오브젝트의 색과 같다면, 변경해야 할 색이기 때문에 리스트에 담는다, 단 거리순 순서는 정렬안된다 그래서 거리순으로 정렬이 필요하다 
+            foreach (GameObject each_obj in allCube)
+            {
+                Color32 objColor;
+                objColor = each_obj.GetComponent<MeshRenderer>().material.color;
+                if (objColor__.Equals(objColor))
+                {
+                    each_obj.GetComponent<Renderer>().enabled = true;
+                }
+            }
+            clickNum++;
+            Debug.Log("clickNum hide :" + clickNum);
+        }
+
+    }
+
+
 }
